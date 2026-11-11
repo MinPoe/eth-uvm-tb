@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Multi-seed regression runner"""
-import argparse, concurrent.futures as cf, json, os, re, subprocess, sys, time
+import argparse, concurrent.futures as cf, json, os, re, shutil, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -45,30 +45,8 @@ def verilator_job(exe, test, seed, logdir, timeout):
     return r
 
 
-def questa_job(workdir, test, seed, logdir, timeout):
-    # UNTESTED in the authoring environment (no commercial simulator available).
-    log = logdir / f"{test}_s{seed}.log"
-    ucdb = workdir / f"cov_{test}_s{seed}.ucdb"
-    cmd = ["vsim", "-c", "-lib", str(workdir / "work"), "tb_top", "-coverage", f"-sv_seed", str(seed),
-           f"+UVM_TESTNAME={test}", "-do", f"coverage save -onexit {ucdb}; run -all; quit -f"]
-    out, rc, dt = run_one(cmd, log, timeout)
-    r = classify(out, rc)
-    r.update(test=test, seed=seed, wall_s=round(dt, 1), log=str(log), ucdb=str(ucdb))
-    return r
-
-
-def questa_build(workdir, uvm_src):
-    workdir.mkdir(parents=True, exist_ok=True)
-    srcs = [ROOT / "rtl" / f for f in ("eth_regs.sv", "eth_rx.sv", "eth_top.sv")] + \
-           [ROOT / "tb" / f for f in ("eth_ifs.sv", "eth_pkg.sv", "tb_top.sv")]
-    subprocess.run(["vlib", str(workdir / "work")], check=True)
-    subprocess.run(["vlog", "-sv", "-work", str(workdir / "work"), "-cover", "bcesf", "+cover=bcesf",
-                    f"+incdir+{ROOT/'tb'}"] + [str(s) for s in srcs], check=True)
-
-
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sim", choices=["verilator", "questa"], default="verilator")
     ap.add_argument("--tests", nargs="*", default=TESTS)
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--seed-base", type=int, default=1)
@@ -83,14 +61,16 @@ def main():
     logdir.mkdir(parents=True, exist_ok=True)
     seeds = range(a.seed_base, a.seed_base + a.seeds)
 
-    if a.sim == "verilator":
-        exe = build / "sim_exe"
-        if not exe.exists():
-            sys.exit(f"{exe} missing: run sim/build_verilator.sh {build}")
-        jobs = [(verilator_job, exe, t, s, logdir, a.timeout) for t in a.tests for s in seeds]
-    else:
-        questa_build(build, os.environ["UVM_SRC"])
-        jobs = [(questa_job, build, t, s, logdir, a.timeout) for t in a.tests for s in seeds]
+    exe = build / "sim_exe"
+    if not exe.exists():
+        sys.exit(f"{exe} missing: run sim/build_verilator.sh {build}")
+    # Verilator's randomize() shells out to an SMT solver at runtime; without one every
+    # constrained randomize() returns 0 and each run dies on the [RAND] fatal.
+    solver = os.environ.get("VERILATOR_SOLVER", "z3 --in").split()[0]
+    if not shutil.which(solver):
+        sys.exit(f"SMT solver '{solver}' not on PATH (needed by Verilator randomize()). "
+                 "Install z3 (apt install z3, or pip install z3-solver) or set VERILATOR_SOLVER.")
+    jobs = [(verilator_job, exe, t, s, logdir, a.timeout) for t in a.tests for s in seeds]
 
     results = []
     with cf.ThreadPoolExecutor(a.jobs) as ex:
@@ -104,13 +84,6 @@ def main():
     results.sort(key=lambda r: (r["test"], r["seed"]))
     npass = sum(r["passed"] for r in results)
     print(f"\n{npass}/{len(results)} runs passed ({len(set(r['test'] for r in results))} tests x {a.seeds} seeds)")
-
-    if a.sim == "questa":
-        ucdbs = [r["ucdb"] for r in results if Path(r["ucdb"]).exists()]
-        merged = build / "merged.ucdb"
-        subprocess.run(["vcover", "merge", "-out", str(merged)] + ucdbs, check=True)
-        subprocess.run(["vcover", "report", "-details", "-cvg", "-output", str(build / "coverage.txt"), str(merged)], check=True)
-        print(f"merged coverage: {merged}  report: {build/'coverage.txt'}")
 
     Path(a.out or build / "regress.json").write_text(json.dumps(results, indent=1))
     sys.exit(0 if npass == len(results) else 1)

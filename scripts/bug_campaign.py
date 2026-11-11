@@ -19,12 +19,21 @@ for bug in a.bugs:
     b = subprocess.run([str(ROOT / "sim" / "build_verilator.sh"), str(bdir), bug], capture_output=True, text=True)
     if b.returncode:
         res[bug] = {"build_failed": b.stdout[-500:] + b.stderr[-500:]}
-        print(bug, "BUILD FAILED", flush=True)
+        print(bug, "BUILD FAILED:", (b.stdout + b.stderr)[-500:], flush=True)
         continue
+    rj = bdir / "regress.json"
+    rj.unlink(missing_ok=True)  # never read a stale result from an earlier campaign
     r = subprocess.run([sys.executable, str(ROOT / "scripts" / "run_regress.py"), "--build", str(bdir),
-                        "--seeds", str(a.seeds), "--jobs", "2", "--out", str(bdir / "regress.json")],
+                        "--seeds", str(a.seeds), "--jobs", "2", "--out", str(rj)],
                        capture_output=True, text=True)
-    runs = json.loads((bdir / "regress.json").read_text())
+    # run_regress exits 1 whenever a run fails (expected for a planted bug), so judge by its output file
+    if not rj.exists():
+        sys.exit(f"{bug}: run_regress.py produced no results:\n{r.stdout[-1000:]}{r.stderr[-1000:]}")
+    runs = json.loads(rj.read_text())
+    # a run that died before the scoreboard summary (e.g. [RAND] fatal) is not a detection
+    bogus = [x for x in runs if "RAND" in x["detectors"]]
+    if bogus:
+        sys.exit(f"{bug}: {len(bogus)} runs died without running (detectors={bogus[0]['detectors']}), see {bogus[0]['log']}")
     by_test = {}
     for x in runs:
         t = by_test.setdefault(x["test"], {"fail": 0, "runs": 0, "detectors": set()})

@@ -1,0 +1,611 @@
+{
+ "CRC_INIT": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   }
+  }
+ },
+ "RUNT_LIMIT": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 1,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 1,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "OVER_OFFBY1": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "TLAST_MIN": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 1,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 2,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   }
+  }
+ },
+ "BP_DROP": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "a_data_stable"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "a_data_stable"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "B2B_RACE": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "a_data_stable"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_corner_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "CRC_CNT_COND": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "DISABLE_LEAK": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "a_no_out_dis"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "MAXLEN_W": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG"
+    ]
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "REG"
+    ]
+   }
+  }
+ },
+ "CNT8": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "a_cnt_step"
+    ]
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_corner_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   }
+  }
+ },
+ "ADDR_WRAP": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   }
+  }
+ },
+ "RUNT_CRC": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "a_flags_1hot"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "a_flags_1hot"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "a_flags_1hot"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "FLAG",
+     "a_flags_1hot"
+    ]
+   }
+  }
+ },
+ "OVFL_NOCNT": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 2,
+    "runs": 3,
+    "detectors": [
+     "REG"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_err_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_rand_test": {
+    "fail": 2,
+    "runs": 3,
+    "detectors": [
+     "REG"
+    ]
+   }
+  }
+ },
+ "DROP_POL": {
+  "caught": true,
+  "tests": {
+   "eth_b2b_test": {
+    "fail": 0,
+    "runs": 3,
+    "detectors": []
+   },
+   "eth_bp_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_cfg_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_corner_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "SCB"
+    ]
+   },
+   "eth_err_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   },
+   "eth_rand_test": {
+    "fail": 3,
+    "runs": 3,
+    "detectors": [
+     "REG",
+     "SCB"
+    ]
+   }
+  }
+ }
+}

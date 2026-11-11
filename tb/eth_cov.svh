@@ -65,10 +65,4 @@ class eth_cov extends uvm_subscriber #(eth_exp);
   function void write(eth_exp t);
     cg_frame.sample(t.outcome, t.body_len, t.drop_on_error, t.enable, t.bp, t.gap);
   endfunction
-
-  function void report_phase(uvm_phase phase);
-    `ifndef VERILATOR
-      `uvm_info("FUNC_COV", $sformatf("cg_frame inst coverage = %0.2f%%", cg_frame.get_inst_coverage()), UVM_NONE)
-    `endif
-  endfunction
 endclass
